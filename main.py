@@ -1,21 +1,19 @@
 import asyncio
 import aiohttp
+import requests
 import sys
 import json
+from http.cookiejar import MozillaCookieJar
 
 try:
     threads = int(sys.argv[1])
 except IndexError:
     threads = 4
 
-# Opera GXのアカウントトークンをここに入れよ
-token = ""
-
 headers = {
     'authority': 'discord.opr.gg',
     'accept': '*/*',
     'accept-language': 'en-US,en;q=0.9',
-    'authorization': token,
     'origin': 'https://www.opera.com',
     'referer': 'https://www.opera.com/',
     'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Opera GX";v="106"',
@@ -26,6 +24,12 @@ headers = {
     'sec-fetch-site': 'cross-site',
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/106.0.0.0',
 }
+cj = MozillaCookieJar('cookies.txt')
+cj.load()
+# aiohttpでCookieを使う方法が難解です
+r = requests.get("https://api.gx.me/profile/token", headers=headers, cookies=cj)
+token = r.json()["data"]
+headers["authorization"] = token
 
 
 async def runner():
