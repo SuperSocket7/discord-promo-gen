@@ -43,6 +43,10 @@ async def runner():
                         with open("promos.txt", "a") as f:
                             f.write(f"{promo_url}\n")
                         print(f"[ \x1b[32mOK\x1b[0m ] {promo_url}")
+                    elif r.status == 401:
+                        print("[ \x1b[31mFAILED\x1b[0m ] 認証失敗")
+                    elif r.status == 403:
+                        print("[ \x1b[31mFAILED\x1b[0m ] なぞのエラー")
                     elif r.status == 429:
                         print("[ \x1b[31mFAILED\x1b[0m ] レート制限がっ")
                     else:
