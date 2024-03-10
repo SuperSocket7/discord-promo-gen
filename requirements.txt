@@ -1,0 +1,2 @@
+aiohtttp
+requests
