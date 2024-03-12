@@ -39,7 +39,11 @@ def generate_token():
     # aiohttpでCookieを使う方法が難解です
     r = requests.get("https://api.gx.me/profile/token", headers=headers, cookies=cj)
     token = r.json()["data"]
-    headers["authorization"] = token
+    if token:
+        headers["authorization"] = token
+    else:
+        print(f"[ \x1b[31mFAILED\x1b[0m ] Cookieが間違ってるぽい、アカウントが死んだ？")
+        exit(1)
 
 
 async def runner():
