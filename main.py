@@ -67,13 +67,20 @@ async def runner():
                     generate_token()
                     continue
                 elif r.status == 403:
-                    print("[ \x1b[31mFAILED\x1b[0m ] なぞのエラー")
+                    # Opera頭おかしいのか？ JSONかと思ったら文字列じゃねーか、なんなんだよこれ
+                    res = json.loads(json.loads(await r.text())["message"])
+                    if res["errors"][0]["alias"] == "gx-games-email-not-verified":
+                        print(f"[ \x1b[31mFAILED\x1b[0m ] アカウントのメール認証ができてないみたい")
+                    elif res["errors"][0]["alias"] == "gx-games-auth-invalid":
+                        print(f"[ \x1b[31mFAILED\x1b[0m ] 謎のエラー、2回目のプロモ生成が原因？")
+                    else:
+                        print(f"[ \x1b[31mFAILED\x1b[0m ] なぞのエラー {await r.text()}")
                 elif r.status == 429:
                     print("[ \x1b[31mFAILED\x1b[0m ] レート制限がっ")
                 else:
                     print("[ \x1b[31mFAILED\x1b[0m ] 知らないエラーだ")
         except Exception as e:
-            print(f"[ \x1b[31mFAILED\x1b[0m ] 知らないエラーだ {e}")
+            print(f"[ \x1b[31mFAILED\x1b[0m ] エラー {e}")
 
 
 async def main():
