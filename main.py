@@ -72,7 +72,7 @@ async def runner():
                     if res["errors"][0]["alias"] == "gx-games-email-not-verified":
                         print(f"[ \x1b[31mFAILED\x1b[0m ] アカウントのメール認証ができてないみたい")
                     elif res["errors"][0]["alias"] == "gx-games-auth-invalid":
-                        print(f"[ \x1b[31mFAILED\x1b[0m ] 謎のエラー、2回目のプロモ生成が原因？")
+                        print(f"[ \x1b[31mFAILED\x1b[0m ] 今日はもうプロモ生成できないぽいです")
                     else:
                         print(f"[ \x1b[31mFAILED\x1b[0m ] なぞのエラー {await r.text()}")
                 elif r.status == 429:
