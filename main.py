@@ -72,13 +72,15 @@ async def runner():
                     if res["errors"][0]["alias"] == "gx-games-email-not-verified":
                         print(f"[ \x1b[31mFAILED\x1b[0m ] アカウントのメール認証ができてないみたい")
                     elif res["errors"][0]["alias"] == "gx-games-auth-invalid":
-                        print(f"[ \x1b[31mFAILED\x1b[0m ] 今日はもうプロモ生成できないぽいです")
+                        # 9秒間待つと再生成できるやんw 実質レート制限みたいなもの？
+                        pass
                     else:
                         print(f"[ \x1b[31mFAILED\x1b[0m ] なぞのエラー {await r.text()}")
                 elif r.status == 429:
                     print("[ \x1b[31mFAILED\x1b[0m ] レート制限がっ")
                 else:
                     print("[ \x1b[31mFAILED\x1b[0m ] 知らないエラーだ")
+                await asyncio.sleep(9)
         except Exception as e:
             print(f"[ \x1b[31mFAILED\x1b[0m ] エラー {e}")
 
