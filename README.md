@@ -30,5 +30,10 @@ OperaGXを使った正規の方法でも403エラーが返されるようにな�
 Operaアカウントを作ってログインした状態で https://api.gx.me/ にアクセスして、<br>
 拡張機能の"Get cookies.txt LOCALLY"とかでcookies.txtをexportして、cookies.txtって名前でおいてくれ<br>
 
+## メール認証の仕方
+GXアカウントは正規の方法で作っても確認メールが送信されないので、<br>
+ログインしたあとに https://auth.opera.com/account/edit-profile にアクセスして、EmailのResendのボタンをクリックする。<br>
+
+
 ## なぜCookieなのか
 トークンはなんか定期的に変わるっぽいので、Cookieの方が現実的だと思う

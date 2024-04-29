@@ -10,7 +10,7 @@ from http.cookiejar import MozillaCookieJar
 try:
     threads = int(sys.argv[1])
 except IndexError:
-    threads = 4
+    threads = 1
 
 headers = {
     'authority': 'discord.opr.gg',
